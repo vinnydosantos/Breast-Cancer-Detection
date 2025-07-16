@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "http-server . -p 3000",
     "start": "http-server . -p 3000",
-    "build": "mkdir -p dist && cp index.html dist/ && cp -r src/* dist/"
+    "build": "mkdir -p dist && cp index.html dist/ && cp style.css dist/ && cp ml-model.js dist/ && cp main.js dist/"
   },
   "keywords": [],
   "author": "",
