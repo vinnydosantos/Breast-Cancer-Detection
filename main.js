@@ -146,6 +146,12 @@ async function analyzeImage() {
         return;
     }
 
+    // Check if model is loaded
+    if (!model.isLoaded) {
+        alert('AI model is still loading. Please wait a moment and try again.');
+        return;
+    }
+
     analysisStartTime = Date.now();
     
     // Show loading state
@@ -177,6 +183,14 @@ async function analyzeImage() {
         
         console.log('TensorFlow.js prediction completed:', probabilities);
         
+        // Ensure image is loaded
+        if (!img.complete) {
+            await new Promise(resolve => {
+                img.onload = resolve;
+            });
+        }
+        
+        console.log('Running TensorFlow prediction on image:', {
         // Display results
         displayResults(probabilities);
         
@@ -291,8 +305,19 @@ AI Model Information:
 - Real-time Processing: Yes (Browser-based)
 - Image Analysis: Contrast, Edge Detection, Symmetry, Uniformity
 
+AI Model Information:
+- Architecture: ${model.getModelInfo()?.architecture || 'Custom CNN'}
+- Framework: ${model.getModelInfo()?.framework || 'TensorFlow.js'}
+- Model Parameters: ${model.getModelInfo()?.totalParams || 'N/A'}
+- Layers: ${model.getModelInfo()?.layers || 'N/A'}
+- Input Size: ${model.getModelInfo()?.inputShape?.join('x') || '224x224x3'}
+- Training: Synthetic medical imaging data
+- Real-time Processing: Yes (Browser-based)
+- Image Analysis: Contrast, Edge Detection, Symmetry, Uniformity
+
 MEDICAL DISCLAIMER:
 This AI analysis uses real CNN processing but is trained on synthetic data
+for educational and research purposes only. 
 for educational and research purposes only. 
 Always consult with qualified healthcare professionals for medical 
 diagnosis and treatment decisions.
