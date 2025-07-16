@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "http-server . -p 3000",
     "start": "http-server . -p 3000",
-    "build": "echo 'No specific build step required for this static site. Files are ready for deployment.'"
+    "build": "mkdir -p dist && cp index.html dist/ && cp -r src/* dist/"
   },
   "keywords": [],
   "author": "",
