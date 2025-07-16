@@ -133,27 +133,48 @@ function displayImagePreview(file) {
 async function analyzeImage() {
     if (!currentImage) return;
 
+    // Check if model is loaded
+    if (!model.isLoaded) {
+        alert('AI model is still loading. Please wait a moment and try again.');
+        return;
+    }
+
     analysisStartTime = Date.now();
     
     // Show loading state
     const analyzeBtn = document.getElementById('analyzeBtn');
     const originalText = analyzeBtn.innerHTML;
-    analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+    analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running AI Analysis...';
     analyzeBtn.disabled = true;
 
     try {
         // Get image element for processing
         const img = document.getElementById('previewImg');
         
-        // Run prediction
+        // Ensure image is loaded
+        if (!img.complete) {
+            await new Promise(resolve => {
+                img.onload = resolve;
+            });
+        }
+        
+        console.log('Running TensorFlow prediction on image:', {
+            width: img.naturalWidth,
+            height: img.naturalHeight,
+            src: img.src.substring(0, 50) + '...'
+        });
+        
+        // Run real TensorFlow prediction
         const probabilities = await model.predict(img);
+        
+        console.log('Prediction completed:', probabilities);
         
         // Display results
         displayResults(probabilities);
         
     } catch (error) {
         console.error('Analysis error:', error);
-        alert('An error occurred during analysis. Please try again.');
+        alert(`Analysis failed: ${error.message}. Please try with a different image.`);
     } finally {
         // Reset button
         analyzeBtn.innerHTML = originalText;
@@ -253,8 +274,12 @@ Detailed Probability Breakdown:
 
 AI Model Information:
 - Architecture: DenseNet-201 with Transfer Learning
+- Architecture: Custom CNN with TensorFlow.js
+- Model Parameters: ${model.getModelInfo()?.totalParams || 'N/A'}
+- Layers: ${model.getModelInfo()?.layers || 'N/A'}
+- Input Size: 224x224x3
 - Training Dataset: Breast Ultrasound Images (780 samples)
-- Model Accuracy: 99.2%
+- Real-time Processing: Yes
 
 MEDICAL DISCLAIMER:
 This AI analysis is for educational and research purposes only. 
