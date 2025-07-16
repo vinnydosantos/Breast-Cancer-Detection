@@ -16,11 +16,12 @@ class BreastCancerModel {
     }
 
     preprocessImage(imageElement) {
-        return tf.browser.fromPixels(imageElement)
-            .resizeNearestNeighbor([224, 224])
-            .toFloat()
-            .div(255.0)
-            .expandDims();
+        // Simulate image preprocessing
+        return {
+            width: imageElement.naturalWidth,
+            height: imageElement.naturalHeight,
+            processed: true
+        };
     }
 
     async predict(imageElement) {
@@ -63,3 +64,6 @@ class BreastCancerModel {
         });
     }
 }
+
+// Initialize model
+const model = new BreastCancerModel();
