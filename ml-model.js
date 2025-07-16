@@ -8,6 +8,9 @@ class BreastCancerModel {
 
     async loadModel() {
         try {
+            // Ensure TensorFlow.js backend is fully initialized
+            await tf.ready();
+            
             console.log('Building real TensorFlow.js CNN model...');
             
             // Create a real CNN architecture for medical image analysis
