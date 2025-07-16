@@ -1,0 +1,16 @@
+{
+  "name": "breast-cancer-detection-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Breast Cancer Detection application",
+  "main": "index.html",
+  "scripts": {
+    "dev": "http-server . -p 3000",
+    "start": "http-server . -p 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
