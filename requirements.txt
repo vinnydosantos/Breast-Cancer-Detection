@@ -1,0 +1,5 @@
+flask==2.3.3
+pywebio==1.8.2
+tensorflow==2.13.0
+pillow==10.0.1
+numpy==1.24.3
