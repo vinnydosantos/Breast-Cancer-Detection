@@ -10,6 +10,7 @@ class BreastCancerModel {
         try {
             // Ensure TensorFlow.js backend is fully initialized
             await tf.ready();
+            await tf.setBackend('webgl');
             
             console.log('Building real TensorFlow.js CNN model...');
             
