@@ -191,6 +191,8 @@ async function analyzeImage() {
         }
         
         console.log('Running TensorFlow prediction on image:', {
+        }
+        )
         // Display results
         displayResults(probabilities);
         
